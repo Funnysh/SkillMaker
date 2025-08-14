@@ -42,6 +42,12 @@ public class AuthService {
 
         user.setRole(Role.USER);
 
+        user.setLevel(1);
+
+        user.setXp(0);
+
+        user.setTotalXp(0);
+
         userRepository.save(user);
 
         return userMapper.responseToDTO(user);

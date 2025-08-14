@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "user")
 @Getter
@@ -43,4 +45,12 @@ public class UserEntity {
     @Column(nullable = true)
     private String about;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<HabitEntity> habits = new ArrayList<>();
+
+    private int level;
+
+    private int xp;
+
+    private int totalXp;
 }
