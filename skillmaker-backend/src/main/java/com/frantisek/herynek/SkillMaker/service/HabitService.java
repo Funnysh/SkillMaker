@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class HabitService {
@@ -29,9 +30,7 @@ public class HabitService {
     private UserRepository userRepository;
 
     public HabitResponseDTO create(HabitCreateDTO habitCreateDTO) {
-        UserEntity user = userRepository.findByUsername(SecurityContextHolder.getContext()
-                        .getAuthentication().getName())
-                .orElseThrow(() -> new UsernameNotFoundException("Uživatel nenalezen"));
+        UserEntity user = fetchUserByUsername();
 
         HabitEntity habit = habitMapper.createToEntity(habitCreateDTO);
 
@@ -50,10 +49,30 @@ public class HabitService {
     }
 
     public List<HabitUserDTO> get() {
-        UserEntity user = userRepository.findByUsername(SecurityContextHolder.getContext()
-                        .getAuthentication().getName())
-                .orElseThrow(() -> new UsernameNotFoundException("Uživatel nenalezen"));
+        UserEntity user = fetchUserByUsername();
 
         return habitMapper.userHabitsToDto(user.getHabits());
+    }
+
+    public HabitCreateDTO update(HabitCreateDTO habitCreateDTO, Long id) {
+        UserEntity user = fetchUserByUsername();
+
+        HabitEntity habit = habitRepository.findByIdAndUser(id, user)
+                .orElseThrow(() -> new IllegalArgumentException("Návyk nenalezen nebo nepatří tomuto uživateli"));
+
+        habit.setName(habitCreateDTO.getName());
+        habit.setDescription(habitCreateDTO.getDescription());
+        habit.setFrequency(habitCreateDTO.getFrequency());
+
+        habitRepository.save(habit);
+
+        return habitMapper.updateHabitToDto(habit);
+    }
+
+
+    private UserEntity fetchUserByUsername() {
+        return userRepository.findByUsername(SecurityContextHolder.getContext()
+                        .getAuthentication().getName())
+                .orElseThrow(() -> new UsernameNotFoundException("Uživatel nenalezen"));
     }
 }

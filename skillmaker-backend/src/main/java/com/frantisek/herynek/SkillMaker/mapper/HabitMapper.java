@@ -18,4 +18,6 @@ public interface HabitMapper {
     HabitResponseDTO habitResponseToDto(HabitEntity source);
 
     List<HabitUserDTO> userHabitsToDto(List<HabitEntity> source);
+
+    HabitCreateDTO updateHabitToDto(HabitEntity source);
 }

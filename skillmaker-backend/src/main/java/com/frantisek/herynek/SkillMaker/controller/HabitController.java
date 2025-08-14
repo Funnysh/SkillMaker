@@ -25,4 +25,9 @@ public class HabitController {
     public List<HabitUserDTO> get(){
         return habitService.get();
     }
+
+    @PutMapping("/update/{id}")
+    public HabitCreateDTO update(@RequestBody HabitCreateDTO habitCreateDTO, @PathVariable Long id) {
+        return habitService.update(habitCreateDTO, id);
+    }
 }
