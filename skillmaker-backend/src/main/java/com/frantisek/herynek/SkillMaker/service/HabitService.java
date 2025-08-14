@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class HabitService {
@@ -46,5 +47,13 @@ public class HabitService {
         habitRepository.save(habit);
 
         return habitMapper.habitResponseToDto(habit);
+    }
+
+    public List<HabitUserDTO> get() {
+        UserEntity user = userRepository.findByUsername(SecurityContextHolder.getContext()
+                        .getAuthentication().getName())
+                .orElseThrow(() -> new UsernameNotFoundException("Uživatel nenalezen"));
+
+        return habitMapper.userHabitsToDto(user.getHabits());
     }
 }

@@ -6,6 +6,8 @@ import com.frantisek.herynek.SkillMaker.dto.habit.HabitUserDTO;
 import com.frantisek.herynek.SkillMaker.entity.HabitEntity;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface HabitMapper {
 
@@ -14,4 +16,6 @@ public interface HabitMapper {
     HabitUserDTO habitToDto(HabitEntity source);
 
     HabitResponseDTO habitResponseToDto(HabitEntity source);
+
+    List<HabitUserDTO> userHabitsToDto(List<HabitEntity> source);
 }
