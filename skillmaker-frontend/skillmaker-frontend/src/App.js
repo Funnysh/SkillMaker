@@ -4,12 +4,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import LoginPage from "./pages/LoginPage";
 import { useEffect, useState } from "react";
 import RegisterPage from "./pages/RegisterPage";
+import ProfilePage from "./pages/ProfilePage";
+import AppLayout from "./pages/AppLayout";
 
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
-    // Listener na změnu tokenu v localStorage z jiných záložek
     const handleStorageChange = () => {
         setToken(localStorage.getItem("token"));
     };
@@ -26,9 +27,18 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={isLoggedIn ? <HomePage /> : <Navigate to="/login" />} />
-        <Route path="/login" element={<LoginPage />} />
+        {/* veřejné */}
+        <Route path="/login" element={<LoginPage onLogin={() => setToken(localStorage.getItem("token"))} />} />
         <Route path="/register" element={<RegisterPage />} />
+
+        {/* chráněné */}
+        <Route element={isLoggedIn ? <AppLayout onLogout={() => { localStorage.removeItem('token'); setToken(null); }} /> : <Navigate to="/login" replace />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/me" element={<ProfilePage />} />
+        </Route>
+
+        {/* fallback */}
+        <Route path="*" element={<Navigate to={isLoggedIn ? "/" : "/login"} replace />} />
       </Routes>
     </Router>
   );

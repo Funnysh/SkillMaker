@@ -21,7 +21,7 @@ const LoginPage = ({ onLogin }) => {
 
         localStorage.setItem("token", response.token);
         onLogin?.();
-        navigate("/");
+        navigate("/", { replace: true });
         console.log("Odpověď z backendu:", response);
     } catch (err) {
         setError("Přihlášení selhalo. Zkontroluj přihlašovací údaje.");
@@ -30,7 +30,8 @@ const LoginPage = ({ onLogin }) => {
 
   return (
         <div className="container mt-5" style={{ maxWidth: "400px" }}>
-            <h2>Přihlášení</h2>
+            <h1 className="text-center">SKILLMAKER</h1>
+
             <form onSubmit={handleSubmit}>
                 <div className="form-group mb-3">
                     <label>Uživatelské jméno</label>
@@ -59,8 +60,8 @@ const LoginPage = ({ onLogin }) => {
                     Přihlásit se
                 </button>
             </form>
-            <div class="text-center">
-                <a href="/register" class="btn btn-link">Nemáš účet? založi si ho</a>
+            <div className="text-center">
+                <a href="/register" class="btn btn-link">Nemáš účet? Založi si ho</a>
             </div>
         </div>
     );

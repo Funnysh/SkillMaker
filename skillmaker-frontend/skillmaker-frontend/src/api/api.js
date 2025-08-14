@@ -1,46 +1,36 @@
-
 const API_URL = "http://localhost:8080";
 
 const fetchData = (url, requestOptions = {}) => {
-    const apiUrl = `${API_URL}${url}`;
-    const token = localStorage.getItem("token");
-    const authHeader = token ? { Authorization: `Bearer ${token}` } : {};
-    const headers = {
-        "Content-Type": "application/json",
-        ...authHeader,
-        ...requestOptions.headers,
-    };
+  const apiUrl = `${API_URL}${url}`;
+  const token = localStorage.getItem("token");
 
-    return fetch(apiUrl, {
-        ...requestOptions,
-        headers,
-    })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
-            }
+  const headers = {
+    "Content-Type": "application/json",
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...(requestOptions.headers || {}),
+  };
 
-            if (requestOptions.method !== 'DELETE') {
-                return response.json();
-            }
-        })
-        .catch((error) => {
-            throw error;
-        });
+  return fetch(apiUrl, { ...requestOptions, headers })
+    .then(async (response) => {
+      if (!response.ok) {
+        if (response.status === 401) {
+          localStorage.removeItem("token");
+        }
+        const text = await response.text().catch(() => "");
+        throw new Error(`${response.status} ${response.statusText} ${text}`);
+      }
+      if (requestOptions.method !== "DELETE") return response.json();
+    });
 };
 
 
 export const apiGet = (url, params) => {
-    const filteredParams = Object.fromEntries(
-        Object.entries(params || {}).filter(([_, value]) => value != null)
+    const filtered = Object.fromEntries(
+        Object.entries(params || {}).filter(([_, v]) => v != null && v !== "")
     );
-
-    const apiUrl = `${url}?${new URLSearchParams(filteredParams)}`;
-    const requestOptions = {
-        method: "GET",
-    };
-
-    return fetchData(apiUrl, requestOptions);
+    const qs = Object.keys(filtered).length ? `?${new URLSearchParams(filtered)}` : "";
+    
+    return fetchData(`${url}${qs}`, { method: "GET" });
 };
 
 export const apiPost = (url, data) => {
