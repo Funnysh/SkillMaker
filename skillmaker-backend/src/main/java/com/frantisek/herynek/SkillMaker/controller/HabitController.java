@@ -30,4 +30,14 @@ public class HabitController {
     public HabitCreateDTO update(@RequestBody HabitCreateDTO habitCreateDTO, @PathVariable Long id) {
         return habitService.update(habitCreateDTO, id);
     }
+
+    @PostMapping("/complete/{id}")
+    public HabitUserDTO complete(@PathVariable Long id) {
+        return habitService.complete(id);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public HabitResponseDTO delete(@PathVariable Long id) {
+        return habitService.delete(id);
+    }
 }

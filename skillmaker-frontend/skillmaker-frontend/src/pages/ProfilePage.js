@@ -65,7 +65,7 @@ const ProfilePage = () => {
         setSaving(false);
     }
   };
-
+  
   if (loading) return <div className="container my-4">Načítám profil…</div>;
 
   return (
@@ -74,6 +74,9 @@ const ProfilePage = () => {
             <Avatar name={me?.username} />
             <div>
                 <h3 className="mb-0">{me?.username}</h3>
+                <div>
+                    <p className="mb-0">Level: {me?.level} | Xp: {me?.totalXp}</p>
+                </div>
                 <div className="text-muted">
                     {me?.email} · role: <span className="badge text-bg-secondary">{me?.role}</span>
                 </div>
