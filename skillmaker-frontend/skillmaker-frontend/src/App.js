@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 import AppLayout from "./pages/AppLayout";
+import AddPage from "./pages/AddPage";
+import AddhabitPage from "./pages/AddHabitPage";
 
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -35,6 +37,8 @@ const App = () => {
         <Route element={isLoggedIn ? <AppLayout onLogout={() => { localStorage.removeItem('token'); setToken(null); }} /> : <Navigate to="/login" replace />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/me" element={<ProfilePage />} />
+          <Route path="/add" element={<AddPage />}/>
+          <Route path="/addHabit" element={<AddhabitPage/>}/>
         </Route>
 
         {/* fallback */}

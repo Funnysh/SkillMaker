@@ -1,4 +1,3 @@
-// src/pages/AppLayout.jsx
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
 
 const AppLayout = ({ onLogout }) => {
