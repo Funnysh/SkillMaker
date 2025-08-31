@@ -48,6 +48,9 @@ public class UserEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HabitEntity> habits = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SkillEntity> skills = new ArrayList<>();
+
     private int level;
 
     private int xp;
