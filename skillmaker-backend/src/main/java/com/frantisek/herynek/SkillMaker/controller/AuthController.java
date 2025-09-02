@@ -12,18 +12,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/api/auth")
+//Rest controller pro autentikaci (login + registrace)
+
+@RestController //Anotace, označuje rest controller
+@RequestMapping("/api/auth") //api předmapování
 public class AuthController {
 
-    @Autowired
+    @Autowired //Anotace, DI, možné pracovat s touto třídou zde
     private AuthService authService;
 
+    //POST na .../register. Vytvoří uživatele. Potřebuje ověřená (@Valid) data a obsah stránky (@RequestBody)
     @PostMapping("/register")
     public UserRegisterResponseDTO register(@Valid @RequestBody UserRegistrationDTO userRegistrationDTO) {
         return authService.registerUser(userRegistrationDTO);
     }
 
+    //Post na .../login. Přihlásí uživatele a uloží JWT token, proto POST. Potřebuje obsahy stránky (@RequestBody)
     @PostMapping("/login")
     public UserLoginResponseDTO login(@RequestBody UserLoginDTO userLoginDTO) {
         return authService.loginUser(userLoginDTO);

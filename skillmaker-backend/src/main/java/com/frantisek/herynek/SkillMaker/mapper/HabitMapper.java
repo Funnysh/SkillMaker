@@ -8,7 +8,9 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+//Mapper na převod dat mezi entitou/DTO a naopak
+
+@Mapper(componentModel = "spring") //Anotace pro mapper
 public interface HabitMapper {
 
     HabitEntity createToEntity(HabitCreateDTO source);

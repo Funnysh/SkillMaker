@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+//DTO odpověď na registraci
+
+@Data //Lombok getter/setter
+@AllArgsConstructor //Konstruktor
+@NoArgsConstructor //Bezparametrický konstruktor
 public class UserRegisterResponseDTO {
 
     private Long id;

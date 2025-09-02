@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+//DTO na data o uživateli a všechny vytvořené návyky
+
+@Data //Lombok getter/setter
+@AllArgsConstructor //Parametrický konstruktor
+@NoArgsConstructor //Bezparametrický konstruktor
 public class UserDTO {
 
     private String username;

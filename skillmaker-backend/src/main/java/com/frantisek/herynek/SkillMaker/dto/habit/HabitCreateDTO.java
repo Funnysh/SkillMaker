@@ -5,9 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+//DTO pro vytvoření návyku. Vstupy name, description a ENUM frequency
+
+@Data //Anotace Lombok. Vytvoří gettery a settery (a toString(), equals(), hashCode())
+@AllArgsConstructor //Konstruktor se všemy atributy
+@NoArgsConstructor //Konstruktor bez parametrů
 public class HabitCreateDTO {
 
     private String name;

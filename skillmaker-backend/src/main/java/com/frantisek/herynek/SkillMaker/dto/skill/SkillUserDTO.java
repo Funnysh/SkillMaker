@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+//DTO na skill uživatele. Vrací id, decription, name, xp, level
+
+@Data //Lombok getter/setter a další metody
+@AllArgsConstructor //Parametrický konstruktor
+@NoArgsConstructor //Bezparamatrický konstruktor
 public class SkillUserDTO {
 
     private Long id;

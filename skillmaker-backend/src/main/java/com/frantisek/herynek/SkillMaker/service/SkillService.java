@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
+//Vyloženě stejnej postup jako u habit, jenom je to skill
+
 @Service
 public class SkillService {
 

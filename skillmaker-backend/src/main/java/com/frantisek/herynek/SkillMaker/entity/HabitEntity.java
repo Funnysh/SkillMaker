@@ -7,7 +7,9 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Entity(name = "habit")
+//Entita uložená v databázi pro habit
+
+@Entity(name = "habit") //Anotace entity,v tabulce pojmenovaná habit
 @Getter
 @Setter
 public class HabitEntity {
@@ -26,8 +28,8 @@ public class HabitEntity {
 
     private boolean active;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne //Více instancí patří jednomu uživateli
+    @JoinColumn(name = "user_id", nullable = false) //Sloupec s cizím klíčem uživatele, který se jmenuje "user_id" a nesmí být null
     private UserEntity user;
 
     //Gamefikace
