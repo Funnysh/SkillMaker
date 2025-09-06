@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+//DTO na návyk uživatele. Vrací id, description, name, streak, bestStreak, xp, level
+
+@Data //Lombok na vytvoření getterů a setterů a na další metody
+@AllArgsConstructor //Parametrický kontrukotr
+@NoArgsConstructor //Bezparamatrický konstruktor
 public class HabitUserDTO {
 
     private Long id;

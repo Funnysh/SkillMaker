@@ -6,11 +6,15 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+//Přístup k databázi
+
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity,Long> {
 
+    //Najde uživatele pomocí uživatelského jména
     Optional<UserEntity> findByUsername(String name);
 
+    //Vrátí, zda uživatel existuje podle uživatelského jména
     boolean existsByUsername(String username);
 
     boolean existsByUsernameIgnoreCase(String username);
