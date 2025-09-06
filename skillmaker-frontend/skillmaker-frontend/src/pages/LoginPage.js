@@ -2,31 +2,34 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiPost } from "../api/api";
 
+//Stránka na login
+
 const LoginPage = ({ onLogin }) => {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const [form, setForm] = useState({ username: "", password: "" });
-  const [error, setError] = useState(null);
+    const [form, setForm] = useState({ username: "", password: "" }); //Pracuje se stavem polí
+    const [error, setError] = useState(null);
 
-  const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
-  };
+    //Pracuje se změnou v poli a ukládá, co tam je
+    const handleChange = (e) => {
+            setForm({ ...form, [e.target.name]: e.target.value });
+    };
 
-  const handleSubmit = async (e) => {
-        e.preventDefault();
+    //Pracuje s tlačítkem na odeslání formuláře
+    const handleSubmit = async (e) => {
+        e.preventDefault(); //Zabrání reloadu
         setError(null);
 
-    try {
-      const response = await apiPost("/api/auth/login", form);
-
-        localStorage.setItem("token", response.token);
-        onLogin?.();
-        navigate("/", { replace: true });
-        console.log("Odpověď z backendu:", response);
-    } catch (err) {
-        setError("Přihlášení selhalo. Zkontroluj přihlašovací údaje.");
-    }
-  };
+        try {
+            const response = await apiPost("/api/auth/login", form); //POST s daty
+            localStorage.setItem("token", response.token); //Ukládá JWT
+            onLogin?.();
+            navigate("/", { replace: true });
+            console.log("Odpověď z backendu:", response);
+        } catch (err) {
+            setError("Přihlášení selhalo. Zkontroluj přihlašovací údaje.");
+        }
+    };
 
   return (
         <div className="container mt-5" style={{ maxWidth: "400px" }}>

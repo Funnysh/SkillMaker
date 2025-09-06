@@ -1,33 +1,37 @@
-import { use, useState } from "react";
+import { useState } from "react";
 import { apiPost } from "../api/api";
 import { useNavigate } from "react-router-dom";
 
-const AddhabitPage = () => {
-    const navigate = useNavigate();
-    const[form, setForm] = useState({name: "", description: "", frequency: ""});
-    const[err,setErr] = useState("");
-    const[ok,setOk] = useState("");
+//Stránka na přidání návku
 
+const AddhabitPage = () => {
+    const navigate = useNavigate(); //Přesměrování
+    const[form, setForm] = useState({name: "", description: "", frequency: ""}); //Práce se stavem formuláře
+    const[err,setErr] = useState(""); //Stav erroru
+    const[ok,setOk] = useState(""); //Stav ok
+
+    //Funkce na práci se změnou 
     const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+        setForm({ ...form, [e.target.name]: e.target.value }); //Nastavuje stav formuláře (podle atributu name, co je v kolonce)
     };
 
+    //Fuknce na odeslání dat formuláře
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        setErr("");
-        setOk("");
+        e.preventDefault(); //Zabrání realoadu stránky po stisknutí
+        setErr(""); //Nasaví error
+        setOk(""); //Naství ok
         try {
-            const response = await apiPost("/api/habit/create", form);
-            navigate("/");
-        } catch(err) {
-            setErr("Vytvoření selhalo.")
+            await apiPost("/api/habit/create", form); //Zkusí poslat požadavek na POST s daty z formuláře
+            navigate("/"); //Přesměrování
+        } catch(err) { //Pokud chyba, hoď tohle
+            setErr("Vytvoření selhalo.") //Nastaví error hlášku
         }
     };
 
     return (
         <div className="container mt-5">
             <h2>Tvorba návyku</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}> {/* když se stiskne submit, zavolá funkci */}
                 <div className="form-group mb-3">
                     <label>Název</label>
                     <input
@@ -35,7 +39,7 @@ const AddhabitPage = () => {
                         className="form-control"
                         name="name"
                         value={form.name}
-                        onChange={handleChange}
+                        onChange={handleChange} /* při jakékoli změně volá funkci */
                         required
                     />
                 </div>
@@ -93,7 +97,7 @@ const AddhabitPage = () => {
                         </div>
                     </div>
                 </div>
-                {err && <div className="alert alert-danger">{err}</div>}
+                {err && <div className="alert alert-danger">{err}</div>} {/* když error není null, vytvoří se div s textem erroru */}
                 <button type="submit" className="btn btn-primary w-100">
                     Vytvořit
                 </button>

@@ -1,12 +1,14 @@
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
 
-const AppLayout = ({ onLogout }) => {
-  const navigate = useNavigate();
+//Stálý základ stránky. Přijímá onLogout
 
+const AppLayout = ({ onLogout }) => {
+  const navigate = useNavigate(); //Přesměrování
+
+  //Funkce na práci s odhlášením. Předaná funkce, která vymaže token
   const handleLogout = () => {
-    // volitelně držet logiku odhlášení tady
-    if (onLogout) onLogout();
-    navigate("/login", { replace: true });
+    if (onLogout) onLogout(); //Pokud se předá funkce, zavolej ji
+    navigate("/login", { replace: true }); //Replace nahradí historii a uživatel se nemůže vrátit
   };
 
   return (
@@ -29,7 +31,7 @@ const AppLayout = ({ onLogout }) => {
       </nav>
 
       <main className="container my-4">
-        <Outlet />
+        <Outlet /> {/* Načtení obsahu aktuálního modulu */}
       </main>
 
         <footer className="mt-auto py-3 bg-light">

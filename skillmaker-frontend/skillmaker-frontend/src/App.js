@@ -23,7 +23,7 @@ const App = () => {
         window.removeEventListener("storage", handleStorageChange);
     };
   }, []);
-
+  
   const isLoggedIn = !!token;
 
   return (

@@ -2,6 +2,8 @@ import { use, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { apiPost } from "../api/api";
 
+//Stránka na registraci
+
 const RegisterPage = () => {
     const navigate = useNavigate();
 
@@ -17,7 +19,7 @@ const RegisterPage = () => {
         setError(null);
 
         try {
-            const response = await apiPost("/api/auth/register", form);
+            await apiPost("/api/auth/register", form);
 
             navigate("/login");
         } catch (err) {

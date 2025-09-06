@@ -1,7 +1,9 @@
 import { Navigate, useNavigate } from "react-router-dom";
 
+//Stránka na s výběrem možností jestli vytvořit návyk nebo skill
 const AddPage = () => {
-    const navigate = useNavigate();
+    const navigate = useNavigate(); //Přeměrování
+
     return (
         <div className="d-flex justify-content-center mt-5 gap-3">
             <div className="card text-center" style={{ width: "300px", height: "300px" }}>
@@ -10,7 +12,7 @@ const AddPage = () => {
                     <button
                         className="btn btn-primary flex-fill"
                         style={{ maxWidth: "200px" }}
-                        onClick={() => navigate("/addHabit")}
+                        onClick={() => navigate("/addHabit")} /* Po kliknutí přesměruje */
                     >
                         Vytvořit návyk
                     </button>
