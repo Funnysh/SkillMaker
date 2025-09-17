@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-//Globální zpracovíné výjimek
+//Globální zpracování výjimek
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
